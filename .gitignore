@@ -1,8 +1,22 @@
+
+# Python virtual environment
 venv/
+.venv/
+
+# Python cache files
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Database files
+*.sqlite3
 db.sqlite3
+
+# Django static and media files
 staticfiles/
 media/
-data.json
+
+# Environment variables and secrets
 .env
+
+# Data files
+data.json
