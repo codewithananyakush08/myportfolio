@@ -1,0 +1,116 @@
+<!-- templates/contact.html -->
+
+{% load static %}
+
+{% block content %}
+<section class="py-5" id="contact">
+  <div class="container">
+    
+    <div class="text-center mb-5">
+      <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-2 contact-eyebrow">
+        <i class="bi bi-envelope-heart-fill"></i>
+        <span>GET IN TOUCH</span>
+      </div>
+      <h2 class="fw-bold fs-1 mt-2">Let's Build Something <span class="gradient-hero-text">Exceptional Together</span></h2>
+      <p class="text-muted" style="max-width: 580px; margin: 0 auto;">
+        Have an inquiry or collaboration opportunity? Drop a message below!
+      </p>
+    </div>
+
+    <!-- Django Success Alert -->
+    {% if messages %}
+      <div class="mx-auto mb-4" style="max-width: 700px;">
+        {% for message in messages %}
+          <div class="alert alert-success d-flex align-items-center gap-2 rounded-4 p-3 shadow-sm">
+            <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+            <div>{{ message }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="row g-4 justify-content-center">
+      <!-- Left: Contact Details -->
+      <div class="col-lg-5">
+        <div class="d-flex flex-column gap-3">
+
+          <!-- Email -->
+          <a href="mailto:ananyakushwaha114@gmail.com" class="contact-info-card">
+            <div class="contact-card-icon icon-email"><i class="bi bi-envelope-at-fill"></i></div>
+            <div>
+              <span class="card-label">Direct Email</span>
+              <h6 class="card-val text-white mb-0">ananyakushwaha114@gmail.com</h6>
+            </div>
+            <i class="bi bi-arrow-up-right ms-auto arrow-icon"></i>
+          </a>
+
+          <!-- LinkedIn (NEW) -->
+          <a href="https://www.linkedin.com/in/ananya-kushwaha-a8775432a" target="_blank" rel="noopener" class="contact-info-card">
+            <div class="contact-card-icon icon-linkedin"><i class="bi bi-linkedin"></i></div>
+            <div>
+              <span class="card-label">LinkedIn Profile</span>
+              <h6 class="card-val text-white mb-0">in/ananya-kushwaha</h6>
+            </div>
+            <i class="bi bi-arrow-up-right ms-auto arrow-icon"></i>
+          </a>
+
+          <!-- GitHub (NEW) -->
+          <a href="https://github.com/codewithananyakush08" target="_blank" rel="noopener" class="contact-info-card">
+            <div class="contact-card-icon icon-github"><i class="bi bi-github"></i></div>
+            <div>
+              <span class="card-label">GitHub</span>
+              <h6 class="card-val text-white mb-0">@codewithananyakush08</h6>
+            </div>
+            <i class="bi bi-arrow-up-right ms-auto arrow-icon"></i>
+          </a>
+
+          <!-- Location -->
+          <div class="contact-info-card">
+            <div class="contact-card-icon icon-loc"><i class="bi bi-geo-alt-fill"></i></div>
+            <div>
+              <span class="card-label">Location</span>
+              <h6 class="card-val text-white mb-0">Lucknow, Uttar Pradesh, India</h6>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="col-lg-7">
+        <div class="contact-form-card">
+          <form method="POST" action="{% url 'contact' %}">
+            {% csrf_token %}
+            
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Your Name <span class="text-danger">*</span></label>
+                <input type="text" name="name" class="form-control" placeholder="e.g. Ananya kushwaha" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Your Email <span class="text-danger">*</span></label>
+                <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-semibold">Subject</label>
+                <input type="text" name="subject" class="form-control" placeholder="Project Inquiry / Job Opportunity">
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-semibold">Your Message <span class="text-danger">*</span></label>
+                <textarea name="message" rows="5" class="form-control" placeholder="Write your message here..." required></textarea>
+              </div>
+              <div class="col-12 pt-2">
+                <button type="submit" class="btn btn-submit-message w-100 py-3">
+                  <i class="bi bi-send-fill me-2"></i><span>Send Message</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}

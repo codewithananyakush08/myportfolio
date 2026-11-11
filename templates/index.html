@@ -1,0 +1,49 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- 1. Hero Section (Photo, Title, Badges, Buttons) -->
+{% include 'sections/hero.html' %}
+
+<!-- 2. About Section (My Story, Education, Philosophy Tabs) -->
+{% include 'sections/about.html' %}
+<!-- 3 Skills Section (Filters + 4 boxes per row) -->
+{% include 'sections/skills.html' %}
+
+<!--4 Experience & Internships Section (timeline cards) -->
+{% include 'sections/experience.html' %}
+
+
+<!-- 5. Projects Section (Filters, Cards, Live links) -->
+{% include 'sections/projects.html' %}
+
+<!--6 Certificates & Achievements Section -->
+{% include 'sections/achievement.html' %}
+
+<!--7 Services Section (cards with deliverables and technology boxes) -->
+{% include 'sections/services.html' %}
+
+<!-- 8. Contact Section (Form, Email, Socials) -->
+{% include 'sections/contact.html' %}
+
+<!-- Interactive Tabs Script -->
+<script>
+    function switchAboutTab(tabName, btn) {
+        document.querySelectorAll('.about-tab-pane').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.about-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + tabName).style.display = 'block';
+        btn.classList.add('active');
+    }
+
+    function filterProjects(cat, btn) {
+        document.querySelectorAll('.project-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.project-item').forEach(item => {
+            item.style.display = (cat === 'all' || item.getAttribute('data-category') === cat) ? 'block' : 'none';
+        });
+    }
+</script>
+
+{% endblock %}

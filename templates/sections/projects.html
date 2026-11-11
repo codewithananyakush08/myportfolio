@@ -1,0 +1,88 @@
+
+<!-- templates/sections/projects.html -->
+{% load static %}
+{% block content %}
+
+<section class="py-5" id="work">
+  <div class="container">
+
+    <!-- Section heading -->
+    <div class="text-center mb-4">
+      <span class="badge-eyebrow">Featured Showcase</span>
+      <h2 class="fw-bold fs-1 mt-2">Projects  <span class="gradient-hero-text">Real-world Problems</span></h2>
+      <p class="text-muted">Production-grade web apps managed directly from Django Admin.</p>
+    </div>
+
+    <!-- Filter buttons (filterProjects() is defined in index.html) -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+      <button type="button" class="project-filter-btn active" onclick="filterProjects('all', this)">All</button>
+      <button type="button" class="project-filter-btn" onclick="filterProjects('frontend', this)">Web / Frontend</button>
+      <button type="button" class="project-filter-btn" onclick="filterProjects('fullstack', this)">Full Stack</button>
+      
+    </div>
+
+    <div class="row g-4">
+      {% if projects %}
+        {% for project in projects %}
+
+          <!-- One project column: 4 per row on laptop, 2 on tablet, 1 on mobile.
+               data-category must match the button values above. -->
+          <div class="col-12 col-sm-6 col-lg-3 project-item" data-category="{{ project.category }}">
+            <div class="project-card h-100">
+
+              <!-- Thumbnail: uploaded image, then image URL, then a placeholder icon -->
+              <div class="project-thumb">
+                {% if project.image %}
+                  <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% elif project.image_url %}
+                  <img src="{{ project.image_url }}" alt="{{ project.title }}">
+                {% else %}
+                  <div class="d-flex align-items-center justify-content-center h-100" style="background: var(--primary-soft);">
+                    <i class="bi bi-code-square fs-1 text-primary"></i>
+                  </div>
+                {% endif %}
+              </div>
+
+              <!-- Card body -->
+              <div class="p-3 d-flex flex-column flex-grow-1">
+                <span class="badge bg-info bg-opacity-10 text-info mb-2 align-self-start font-monospace">{{ project.get_category_display }}</span>
+                <h5 class="fw-bold mb-2">{{ project.title }}</h5>
+                <p class="text-muted mb-3">{{ project.description }}</p>
+
+                <!-- Tech stack chips -->
+                <div class="d-flex flex-wrap gap-1 mb-3">
+                  {% for tech in project.get_tech_list %}
+                    <span class="chip">{{ tech }}</span>
+                  {% endfor %}
+                </div>
+
+                <!-- Links (pushed to the bottom of the card) -->
+                <div class="mt-auto d-flex flex-wrap gap-2 pt-3 border-top border-secondary border-opacity-25">
+                  {% if project.live_url %}
+                    <a href="{{ project.live_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-primary rounded-pill px-3">
+                      <i class="bi bi-box-arrow-up-right me-1"></i>Live Demo
+                    </a>
+                  {% endif %}
+                  {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                      <i class="bi bi-github me-1"></i>GitHub
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        {% endfor %}
+      {% else %}
+        <!-- Shown only when no project has been added in Django Admin yet -->
+        <div class="col-12 text-center py-5">
+          <p class="text-muted">No projects found. Log into <a href="/admin/" target="_blank" class="text-info">Django Admin</a> to add projects!</p>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

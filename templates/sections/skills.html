@@ -1,0 +1,70 @@
+<!-- templates/sections/skills.html -->
+
+<section class="py-5" id="skills">
+  <div class="container">
+
+    <!-- Section heading -->
+    <div class="text-center mb-4">
+      <span class="badge-eyebrow">TECHNOLOGIES</span>
+      <h2 class="fw-bold fs-1 mt-2">Skills &amp; <span class="gradient-hero-text">TECHNOLOGIES</span></h2>
+      <p class="text-muted">Languages, frameworks and tools I use to build real projects.</p>
+    </div>
+
+    <!-- Filter buttons (separate class from the project filters so they do not clash) -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+      <button type="button" class="skill-filter-btn active" onclick="filterSkills('all', this)">All</button>
+      <button type="button" class="skill-filter-btn" onclick="filterSkills('language', this)">Languages</button>
+      <button type="button" class="skill-filter-btn" onclick="filterSkills('framework', this)">Frameworks</button>
+      <button type="button" class="skill-filter-btn" onclick="filterSkills('tool', this)">Tools &amp; Platforms</button>
+    </div>
+
+    <div class="row g-4">
+      {% for skill in skills %}
+
+        <!-- One skill box: 4 per row on laptop, 2 on tablet, 1 on mobile.
+             data-skill-type must match the button values above. -->
+        <div class="col-12 col-sm-6 col-lg-3 skill-item" data-skill-type="{{ skill.skill_type }}">
+          <div class="skill-card">
+
+            <!-- Top: icon + skill name -->
+            <div class="skill-head">
+              <div class="skill-icon"><i class="{{ skill.icon_name }}"></i></div>
+              <h5 class="skill-name">{{ skill.name }}</h5>
+            </div>
+
+            <!-- Middle: description (written from Django Admin, hidden if empty) -->
+            {% if skill.description %}
+              <p class="skill-desc">{{ skill.description }}</p>
+            {% endif %}
+
+            <!-- Bottom: category label -->
+            <div class="skill-foot">Category: {{ skill.get_skill_type_display }}</div>
+
+          </div>
+        </div>
+
+      {% empty %}
+        <!-- Shown only when no skill has been added in Django Admin yet -->
+        <div class="col-12 text-center py-5">
+          <p class="text-muted">No skills found. Add skills from <a href="/admin/" target="_blank" class="text-info">Django Admin</a>.</p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<!-- Filter script for this section (self-contained, no change needed in index.html) -->
+<script>
+  function filterSkills(type, btn) {
+    // Highlight the clicked button
+    document.querySelectorAll('.skill-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    // Show only the boxes that match the chosen type
+    document.querySelectorAll('.skill-item').forEach(function (item) {
+      var show = (type === 'all' || item.getAttribute('data-skill-type') === type);
+      item.style.display = show ? '' : 'none';
+    });
+  }
+</script>

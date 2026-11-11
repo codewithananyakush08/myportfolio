@@ -1,0 +1,86 @@
+<!-- templates/sections/certificates.html -->
+
+<section class="py-5" id="achievements">
+  <div class="container">
+
+    <!-- Section heading -->
+    <div class="text-center mb-4">
+      <span class="badge-eyebrow"><i class="bi bi-award me-1"></i> RECOGNITION</span>
+      <h2 class="fw-bold fs-1 mt-2">Certificates &amp; <span class="gradient-hero-text">Achievements</span></h2>
+      <p class="text-muted mx-auto" style="max-width: 620px;">
+        Courses, trainings and milestones that shaped my skills as a developer.
+      </p>
+    </div>
+
+    <!-- Filter buttons (own class so they do not clash with project / skill filters) -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+      <button type="button" class="ach-filter-btn active" onclick="filterAch('all', this)">All</button>
+      <button type="button" class="ach-filter-btn" onclick="filterAch('certificate', this)">Certificates</button>
+      <button type="button" class="ach-filter-btn" onclick="filterAch('achievement', this)">Achievements</button>
+    </div>
+
+    <div class="row g-4">
+      {% for item in achievements %}
+
+        <!-- One box: 3 per row on laptop, 2 on tablet, 1 on mobile.
+             data-kind must match the button values above. -->
+        <div class="col-12 col-md-6 col-lg-4 ach-item" data-kind="{{ item.kind }}">
+          <div class="ach-card">
+
+            <!-- Top row: icon + small type badge -->
+            <div class="ach-head">
+              <div class="ach-icon{% if item.kind == 'achievement' %} ach-icon-gold{% endif %}">
+                <i class="bi {% if item.kind == 'achievement' %}bi-trophy-fill{% else %}bi-patch-check-fill{% endif %}"></i>
+              </div>
+              <span class="ach-kind">{{ item.get_kind_display }}</span>
+            </div>
+
+            <!-- Title, issuer and date -->
+            <h5 class="ach-title">{{ item.title }}</h5>
+            {% if item.issuer %}
+              <div class="ach-issuer">{{ item.issuer }}</div>
+            {% endif %}
+            {% if item.date_text %}
+              <div class="ach-date"><i class="bi bi-calendar3 me-1"></i>{{ item.date_text }}</div>
+            {% endif %}
+
+            <!-- Short description (hidden if empty) -->
+            {% if item.description %}
+              <p class="ach-desc">{{ item.description }}</p>
+            {% endif %}
+
+            <!-- Optional link to the certificate (hidden if empty) -->
+            {% if item.link %}
+              <a href="{{ item.link }}" target="_blank" rel="noopener" class="ach-link">
+                View Certificate <i class="bi bi-arrow-up-right ms-1"></i>
+              </a>
+            {% endif %}
+
+          </div>
+        </div>
+
+      {% empty %}
+        <!-- Shown only when nothing has been added in Django Admin yet -->
+        <div class="col-12 text-center py-5">
+          <p class="text-muted">No entries found. Add certificates from <a href="/admin/" target="_blank" class="text-info">Django Admin</a>.</p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<!-- Filter script for this section (self-contained, no change needed in index.html) -->
+<script>
+  function filterAch(kind, btn) {
+    // Highlight the clicked button
+    document.querySelectorAll('.ach-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    // Show only the boxes that match the chosen type
+    document.querySelectorAll('.ach-item').forEach(function (item) {
+      var show = (kind === 'all' || item.getAttribute('data-kind') === kind);
+      item.style.display = show ? '' : 'none';
+    });
+  }
+</script>

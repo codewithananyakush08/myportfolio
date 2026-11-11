@@ -1,0 +1,157 @@
+<!-- templates/sections/about.html -->
+{% load static %}
+<section class="py-5" id="about">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="mb-5">
+      <h2 class="fw-bold hero-about-title">
+        Behind the <span class="gradient-hero-text">Code &amp; Products</span>
+      </h2>
+      <p class="text-muted fs-6">
+        Understanding my journey as a student developer, Python enthusiast, and digital creator.
+      </p>
+    </div>
+
+    <div class="row g-4 align-items-start">
+
+      <!-- ==========================================
+           LEFT COLUMN: Identity Profile Card
+           ========================================== -->
+      <div class="col-lg-5">
+        <div class="about-id-card p-4">
+
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="about-avatar-squircle">
+              <img src="{% static 'images/sari.jpeg' %}" alt="Ananya Kushwaha"
+                onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face'">
+            </div>
+            <div>
+              <h4 class="fw-bold text-white mb-0">Ananya Kushwaha</h4>
+              <div class="text-info font-monospace small mb-1">Diploma in IT | Python &amp; Web Developer</div>
+              <div class="text-muted small">
+                <i class="bi bi-geo-alt-fill text-danger me-1"></i>Lucknow, Uttar Pradesh, India
+              </div>
+            </div>
+          </div>
+
+          <p class="about-bio-text text-muted mb-4">
+            I am a Python Full-Stack Developer passionate about building practical digital solutions, responsive web
+            applications, and user-friendly software. Currently pursuing a Diploma in Information Technology, I focus on
+            Python, Django, frontend development, database management, and exploring AI integration to create
+            innovative, efficient, and real-world applications.
+          </p>
+
+          <hr class="border-secondary border-opacity-25 my-3">
+
+          <!-- Status / Institution / Degree rows (gap-3 gives proper spacing) -->
+          <div class="about-meta-list d-flex flex-column gap-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted small">Current Status:</span>
+              <span class="text-success small fw-semibold d-flex align-items-center gap-1">
+                <span class="status-pulse-green"></span>
+                Available for Projects &amp; Collaborations
+              </span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted small">Institution:</span>
+              <span class="text-white small fw-medium d-flex align-items-center gap-1">
+                <i class="bi bi-mortarboard-fill text-info"></i>
+                Government Girls Polytechnic Lucknow
+              </span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted small">Degree:</span>
+              <span class="text-white small fw-semibold font-monospace">Diploma in IT</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==========================================
+           RIGHT COLUMN: 2 Tabs (My Story / Education)
+           ========================================== -->
+      <div class="col-lg-7">
+
+        <!-- Tab buttons -->
+        <div class="about-tab-bar mb-3">
+          <button type="button" class="about-tab-pill active" id="btn-story" onclick="showAboutTab('story')">
+            My Story
+          </button>
+          <button type="button" class="about-tab-pill" id="btn-education" onclick="showAboutTab('education')">
+            Education
+          </button>
+        </div>
+
+        <!-- 1. MY STORY PANE (visible by default) -->
+        <div class="about-pane-card" id="content-story" style="display: block;">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-compass text-info fs-5"></i>
+            <h5 class="fw-bold text-white mb-0">About me</h5>
+          </div>
+          <p class="text-muted mb-3">
+            My journey in technology began with a passion for understanding how software and web applications work
+            behind the scenes. As an Information Technology Diploma student, I am building a strong foundation in
+            programming, database management, and full-stack web development using Python, Django, HTML, CSS,
+            JavaScript, and Bootstrap.
+          </p>
+          <p class="text-muted mb-0">
+            I believe technology should solve real-world problems. Through projects like SmartBuildHub, File Tracking
+            System, and my personal portfolio, I focus on developing practical, responsive, and user-friendly
+            applications. I continuously explore new technologies, strengthen my problem-solving skills, and aim to grow
+            as a professional software developer.
+          </p>
+        </div>
+
+        <!-- 2. EDUCATION PANE (hidden until the Education tab is clicked) -->
+        <div class="about-pane-card" id="content-education" style="display: none;">
+          <div class="edu-entry">
+
+            <div class="edu-top">
+              <!-- Icon box on the left (a college logo <img> can be placed here later) -->
+              <div class="edu-logo"><i class="bi bi-mortarboard-fill"></i></div>
+
+              <div class="edu-info">
+                <h5 class="edu-degree">Diploma in Information Technology</h5>
+                <div class="edu-school">Government Girls Polytechnic, Lucknow &mdash; Uttar Pradesh, India</div>
+                <div class="edu-board">Board of Technical Education, Uttar Pradesh (BTEUP)</div>
+              </div>
+
+              <!-- Date pill on the right -->
+              <span class="edu-date">2024 &ndash; 2027</span>
+            </div>
+
+            <div class="edu-label">Relevant Coursework:</div>
+            <div class="edu-chips">
+              <span class="edu-chip">Data Structures</span>
+              <span class="edu-chip">Programming in C</span>
+              <span class="edu-chip">Python Object-Oriented Programming</span>
+              <span class="edu-chip">Database Management Systems (DBMS)</span>
+              <span class="edu-chip">Operating Systems</span>
+              <span class="edu-chip">Web Technologies</span>
+              <span class="edu-chip">Computer Networks</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tab switcher script (only two tabs: story and education) -->
+<script>
+  function showAboutTab(tab) {
+    // Show the chosen pane and hide the other one
+    document.getElementById('content-story').style.display = (tab === 'story') ? 'block' : 'none';
+    document.getElementById('content-education').style.display = (tab === 'education') ? 'block' : 'none';
+
+    // Highlight the matching tab button
+    document.getElementById('btn-story').classList.toggle('active', tab === 'story');
+    document.getElementById('btn-education').classList.toggle('active', tab === 'education');
+  }
+</script>

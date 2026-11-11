@@ -1,0 +1,63 @@
+<!-- templates/sections/hero.html -->
+{% load static %}
+<section class="hero-center text-center py-5" id="hero">
+  <div class="container">
+    
+    <!-- 1. Centered Glowing Avatar (Image yahan se badlein) -->
+    <div class="hero-avatar-wrapper mb-4">
+      <div class="hero-avatar-halo">
+        <img src="{% static 'images/sari.jpeg' %}" alt="Ananya Kushwaha" class="hero-avatar-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face'">
+      </div>
+    </div>
+
+    <!-- 2. Currently Building Pill -->
+    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-4 building-pill">
+      <span class="status-dot-green"></span>
+      <span class="text-muted small font-monospace">Currently Building:</span>
+      <span class="text-white small fw-bold">File Tracking System </span>
+    </div>
+
+    <!-- 3. Main Huge Headline -->
+    <h1 class="hero-huge-title mb-3">
+      Building Innovative <br>
+      <span class="gradient-hero-text">Software Solutions</span>
+    </h1>
+
+    <!-- 4. Subtitle -->
+    <p class="hero-center-sub mx-auto mb-4">
+      Building intelligent digital experiences at the intersection of Python, web technology, and creative web design.
+    </p>
+
+    <!-- 5. 3 Badges (Amber, Cyan, Purple) -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+      <div class="hero-badge badge-amber">
+        <i class="bi bi-award-fill text-warning me-1.5"></i>
+        <span>Uptoskills Intern </span>
+      </div>
+      <div class="hero-badge badge-cyan">
+        <i class="bi bi-mortarboard-fill text-info me-1.5"></i>
+        <span>Diploma in IT (Honours)</span>
+      </div>
+      <div class="hero-badge badge-purple">
+        <i class="bi bi-code-slash text-purple me-1.5" style="color: #c084fc;"></i>
+        <span>Python & Web Developer</span>
+      </div>
+    </div>
+
+    <!-- 6. 3 CTA Buttons -->
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <a href="#work" class="btn-hero-solid">
+        <span>Explore My Work</span>
+        <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+      <a href="{% static 'images/kushresume.pdf' %}"  target="_blank" class="btn-hero-outline"><i class="bi bi-download me-2"></i>
+        Resume
+      </a>
+      <a href="#about" class="btn-hero-ai">
+        <i class="bi bi-stars me-1.5"></i>
+        <span>About Me</span>
+      </a>
+    </div>
+
+  </div>
+</section>

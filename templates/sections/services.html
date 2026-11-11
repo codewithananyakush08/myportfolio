@@ -1,0 +1,65 @@
+<!-- templates/sections/services.html -->
+
+<section class="py-5" id="services">
+  <div class="container">
+
+    <!-- Section heading -->
+    <div class="text-center mb-5">
+      <span class="badge-eyebrow"><i class="bi bi-code-slash me-1"></i> SERVICES &amp; FREELANCE</span>
+      <h2 class="fw-bold fs-1 mt-2">Let's Build Something <span class="gradient-hero-text">Together</span></h2>
+      <p class="text-muted mx-auto" style="max-width: 640px;">
+        Collaborating on websites, web applications and interface designs, from the first layout to going live.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      {% for service in services %}
+
+        <!-- One service card: 4 per row on laptop, 2 on tablet, 1 on mobile -->
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="svc-card">
+
+            <!-- Icon box (icon class comes from Django Admin, e.g. bi-server) -->
+            <div class="svc-icon"><i class="bi {{ service.icon }}"></i></div>
+
+            <!-- Small category label + title -->
+            {% if service.category %}
+              <div class="svc-category">{{ service.category }}</div>
+            {% endif %}
+            <h5 class="svc-title">{{ service.title }}</h5>
+
+            <!-- Short description -->
+            <p class="svc-desc">{{ service.description }}</p>
+
+            <!-- Deliverables (one point per line in Django Admin, hidden if empty) -->
+            {% if service.get_deliverable_list %}
+              <div class="svc-label">Deliverables:</div>
+              <ul class="svc-list">
+                {% for point in service.get_deliverable_list %}
+                  <li><i class="bi bi-check2"></i><span>{{ point }}</span></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            <!-- Technology boxes (comma separated in Django Admin, hidden if empty) -->
+            {% if service.get_tech_list %}
+              <div class="svc-tech">
+                {% for tech in service.get_tech_list %}
+                  <span class="svc-chip">{{ tech }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+
+      {% empty %}
+        <!-- Shown only when no service has been added in Django Admin yet -->
+        <div class="col-12 text-center py-5">
+          <p class="text-muted">No services found. Add them from <a href="/admin/" target="_blank" class="text-info">Django Admin</a>.</p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

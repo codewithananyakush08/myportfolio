@@ -1,0 +1,77 @@
+<!-- templates/sections/experience.html -->
+
+<section class="py-5" id="experience">
+  <div class="container">
+
+    <!-- Section heading -->
+    <div class="text-center mb-5">
+      <span class="badge-eyebrow"><i class="bi bi-clock-history me-1"></i> PROFESSIONAL JOURNEY</span>
+      <h2 class="fw-bold fs-1 mt-2">Experience &amp; <span class="gradient-hero-text">Internships</span></h2>
+      <p class="text-muted mx-auto" style="max-width: 620px;">
+        Hands-on practical experience across web development, Python and real-world projects.
+      </p>
+    </div>
+
+    <!-- Timeline: vertical line on the left, one card per entry -->
+    <div class="exp-timeline">
+      {% for exp in experiences %}
+        <div class="exp-item">
+
+          <!-- Dot on the timeline line -->
+          <span class="exp-dot"></span>
+
+          <div class="exp-card">
+
+            <!-- Top row: type badge + role on the left, period on the right -->
+            <div class="exp-top">
+              <div>
+                <span class="exp-kind">{{ exp.get_kind_display }}</span>
+                <h4 class="exp-title">{{ exp.role }}</h4>
+                <div class="exp-meta">
+                  <span class="exp-company"><i class="bi bi-building me-1"></i>{{ exp.institution }}</span>
+                  {% if exp.location %}
+                    <span class="exp-sep">&bull;</span>
+                    <span class="text-muted"><i class="bi bi-geo-alt me-1"></i>{{ exp.location }}</span>
+                  {% endif %}
+                </div>
+              </div>
+              <span class="exp-date"><i class="bi bi-calendar3 me-1"></i>{{ exp.period }}</span>
+            </div>
+
+            <!-- Short description -->
+            {% if exp.description %}
+              <p class="exp-desc">{{ exp.description }}</p>
+            {% endif %}
+
+            <!-- Key contributions (one point per line in Django Admin, hidden if empty) -->
+            {% if exp.get_contribution_list %}
+              <div class="exp-divider"></div>
+              <div class="exp-points-title">Key Contributions:</div>
+              <ul class="exp-points">
+                {% for point in exp.get_contribution_list %}
+                  <li><i class="bi bi-check-circle"></i><span>{{ point }}</span></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            <!-- Tech tags (comma separated in Django Admin, hidden if empty) -->
+            {% if exp.get_tech_list %}
+              <div class="d-flex flex-wrap gap-2 mt-3">
+                {% for tech in exp.get_tech_list %}
+                  <span class="chip">{{ tech }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+      {% empty %}
+        <!-- Shown only when no experience has been added in Django Admin yet -->
+        <p class="text-muted text-center py-4">
+          No experience found. Add entries from <a href="/admin/" target="_blank" class="text-info">Django Admin</a>.
+        </p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
